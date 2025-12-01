@@ -15,12 +15,13 @@ export const generatePostContent = async (
   linkedin: { text: string; imagePrompt: string };
   twitter: { text: string; imagePrompt: string };
   instagram: { text: string; hashtags: string[]; imagePrompt: string };
+  facebook: { text: string; imagePrompt: string };
 }> => {
   const ai = getClient();
   
   const prompt = `
     You are a professional social media manager fluent in Arabic.
-    Task: Create drafted posts for LinkedIn, Twitter, and Instagram based on the following user idea.
+    Task: Create drafted posts for LinkedIn, Twitter, Instagram, and Facebook based on the following user idea.
     Idea: "${idea}"
     Tone: ${tone} (Please match this tone strictly in Arabic).
 
@@ -29,7 +30,8 @@ export const generatePostContent = async (
     2. LinkedIn: Long-form, professional, engaging, thought leadership style.
     3. Twitter: Short, punchy, under 280 chars, viral potential.
     4. Instagram: Visual-first caption, engaging hook, spacing, and relevant hashtags.
-    5. For EACH platform, provide a detailed English prompt to generate a high-quality image that matches the post content and platform aesthetics.
+    5. Facebook: Conversational, community-focused, storytelling or question-based, moderate length.
+    6. For EACH platform, provide a detailed English prompt to generate a high-quality image that matches the post content and platform aesthetics.
   `;
 
   const response = await ai.models.generateContent({
@@ -64,9 +66,17 @@ export const generatePostContent = async (
               imagePrompt: { type: Type.STRING, description: "Prompt for image generation in English" }
             },
             required: ["text", "hashtags", "imagePrompt"]
+          },
+          facebook: {
+            type: Type.OBJECT,
+            properties: {
+              text: { type: Type.STRING },
+              imagePrompt: { type: Type.STRING, description: "Prompt for image generation in English" }
+            },
+            required: ["text", "imagePrompt"]
           }
         },
-        required: ["linkedin", "twitter", "instagram"]
+        required: ["linkedin", "twitter", "instagram", "facebook"]
       }
     }
   });
@@ -95,6 +105,9 @@ export const generateImageForPlatform = async (
         break;
       case Platform.INSTAGRAM:
         ratio = '1:1';
+        break;
+      case Platform.FACEBOOK:
+        ratio = '4:3';
         break;
       default:
         ratio = '1:1';

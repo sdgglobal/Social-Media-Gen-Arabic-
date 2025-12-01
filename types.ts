@@ -1,7 +1,8 @@
 export enum Platform {
   LINKEDIN = 'LINKEDIN',
   TWITTER = 'TWITTER',
-  INSTAGRAM = 'INSTAGRAM'
+  INSTAGRAM = 'INSTAGRAM',
+  FACEBOOK = 'FACEBOOK'
 }
 
 export enum Tone {
@@ -23,6 +24,7 @@ export interface GenerationResult {
   [Platform.LINKEDIN]: GeneratedPost;
   [Platform.TWITTER]: GeneratedPost;
   [Platform.INSTAGRAM]: GeneratedPost;
+  [Platform.FACEBOOK]: GeneratedPost;
 }
 
 export type AspectRatio = '1:1' | '2:3' | '3:2' | '3:4' | '4:3' | '9:16' | '16:9' | '21:9';

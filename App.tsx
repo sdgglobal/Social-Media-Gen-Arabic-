@@ -116,7 +116,8 @@ const App: React.FC = () => {
       const newResults: GenerationResult = {
         [Platform.LINKEDIN]: { ...content.linkedin, platform: Platform.LINKEDIN },
         [Platform.TWITTER]: { ...content.twitter, platform: Platform.TWITTER },
-        [Platform.INSTAGRAM]: { ...content.instagram, platform: Platform.INSTAGRAM }
+        [Platform.INSTAGRAM]: { ...content.instagram, platform: Platform.INSTAGRAM },
+        [Platform.FACEBOOK]: { ...content.facebook, platform: Platform.FACEBOOK }
       };
 
       setResults(newResults);
@@ -136,7 +137,7 @@ const App: React.FC = () => {
   };
 
   const generateAllImages = async (currentResults: GenerationResult) => {
-    const platforms = [Platform.LINKEDIN, Platform.TWITTER, Platform.INSTAGRAM];
+    const platforms = [Platform.LINKEDIN, Platform.TWITTER, Platform.INSTAGRAM, Platform.FACEBOOK];
     
     // Set loading indicators
     setResults(prev => {
@@ -390,7 +391,7 @@ const App: React.FC = () => {
                 <h2 className="text-2xl font-bold text-gray-800">النتائج المقترحة</h2>
              </div>
              
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                 <div className="h-full">
                   <PostCard 
                     post={results[Platform.LINKEDIN]} 
@@ -410,6 +411,13 @@ const App: React.FC = () => {
                     post={results[Platform.INSTAGRAM]} 
                     isImageLoading={!!results[Platform.INSTAGRAM].imageLoading}
                     onRegenerateImage={() => handleRegenerateImage(Platform.INSTAGRAM)}
+                  />
+                </div>
+                 <div className="h-full">
+                  <PostCard 
+                    post={results[Platform.FACEBOOK]} 
+                    isImageLoading={!!results[Platform.FACEBOOK].imageLoading}
+                    onRegenerateImage={() => handleRegenerateImage(Platform.FACEBOOK)}
                   />
                 </div>
              </div>

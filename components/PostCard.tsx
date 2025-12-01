@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GeneratedPost, Platform } from '../types';
-import { RefreshCw, Copy, Download, Share2, Type, Image as ImageIcon, ChevronDown, ChevronUp, Plus, X, Hash } from 'lucide-react';
+import { RefreshCw, Copy, Download, Share2, Type, Image as ImageIcon, ChevronDown, ChevronUp, Plus, X, Hash, Facebook } from 'lucide-react';
 
 interface PostCardProps {
   post: GeneratedPost;
@@ -44,6 +44,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onRegenerateImage, isImageLoa
       case Platform.LINKEDIN: return <span className="text-[#0077b5]">Linkedin</span>;
       case Platform.TWITTER: return <span className="text-[#1DA1F2]">X / Twitter</span>;
       case Platform.INSTAGRAM: return <span className="text-[#E1306C]">Instagram</span>;
+      case Platform.FACEBOOK: return <span className="text-[#1877F2] flex items-center gap-1"><Facebook size={16} /> Facebook</span>;
     }
   };
 
@@ -52,6 +53,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onRegenerateImage, isImageLoa
       case Platform.LINKEDIN: return 'border-blue-200';
       case Platform.TWITTER: return 'border-sky-200';
       case Platform.INSTAGRAM: return 'border-pink-200';
+      case Platform.FACEBOOK: return 'border-blue-300';
     }
   };
 
